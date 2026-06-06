@@ -8,46 +8,51 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Currículo Online</title>
+    <title>Curriculo Online</title>
   </head>
   <body>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang="pt" class="lang-btn" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" class="lang-btn" aria-pressed="false">EN</button>
+    </div>
+
     <main id="app" class="page">
       <header class="hero">
-        <p class="hero-tag">Currículo</p>
-        <h1 class="hero-name" id="profile-name">Carregando...</h1>
+        <p class="hero-tag" id="hero-tag">...</p>
+        <h1 class="hero-name" id="profile-name">...</h1>
         <p class="hero-title" id="profile-title"></p>
         <p class="hero-location" id="profile-location"></p>
         <nav class="hero-links" id="profile-links" aria-label="Contatos"></nav>
       </header>
 
       <section class="card" aria-labelledby="about-heading">
-        <h2 id="about-heading" class="section-title">Sobre</h2>
+        <h2 id="about-heading" class="section-title">...</h2>
         <p class="section-text" id="profile-summary"></p>
       </section>
 
       <section class="card" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" class="section-title">Competências</h2>
+        <h2 id="skills-heading" class="section-title">...</h2>
         <ul class="chips" id="skills-list"></ul>
       </section>
 
       <section class="card" aria-labelledby="experience-heading">
-        <h2 id="experience-heading" class="section-title">Experiência</h2>
+        <h2 id="experience-heading" class="section-title">...</h2>
         <ol class="timeline" id="experience-list"></ol>
       </section>
 
       <section class="card" aria-labelledby="education-heading">
-        <h2 id="education-heading" class="section-title">Formação</h2>
+        <h2 id="education-heading" class="section-title">...</h2>
         <ol class="timeline" id="education-list"></ol>
       </section>
 
       <section class="card" aria-labelledby="projects-heading">
-        <h2 id="projects-heading" class="section-title">Projetos</h2>
+        <h2 id="projects-heading" class="section-title">...</h2>
         <p class="section-hint" id="projects-hint"></p>
         <ul class="projects" id="projects-list"></ul>
       </section>
 
       <footer class="footer">
-        <p>Feito com cuidado. Hospedado no GitHub Pages.</p>
+        <p id="footer-text">...</p>
       </footer>
     </main>
 

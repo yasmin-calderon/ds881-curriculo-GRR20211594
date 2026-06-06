@@ -314,6 +314,50 @@ body::before {
   margin-top: 8px;
 }
 
+/* Language switcher fixo no canto superior direito. */
+.lang-switcher {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.lang-btn.is-active {
+  background: var(--brand);
+  color: #fff;
+}
+
+.lang-btn:hover:not(.is-active) {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.lang-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
 @media (width <= 600px) {
   .page {
     padding: 40px 16px 64px;
@@ -322,5 +366,10 @@ body::before {
 
   .card {
     padding: 24px 22px;
+  }
+
+  .lang-switcher {
+    top: 10px;
+    right: 10px;
   }
 }

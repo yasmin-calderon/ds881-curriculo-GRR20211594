@@ -9,6 +9,23 @@
     "github": "https://github.com/yasmin-calderon",
     "githubUser": "yasmin-calderon"
   },
+  "ui": {
+    "windowTitle": "Currículo Online",
+    "tag": "Currículo",
+    "about": "Sobre",
+    "skills": "Competências",
+    "experience": "Experiência",
+    "education": "Formação",
+    "projects": "Projetos",
+    "projectsTeaser": "Os repositórios públicos serão listados aqui em breve.",
+    "projectsNone": "Nenhum repositório público destacado ainda.",
+    "projectsLoaded": "Últimos {n} projetos públicos:",
+    "projectsError": "Não foi possível carregar os repositórios do GitHub.",
+    "noDescription": "Sem descrição.",
+    "copied": "Copiado!",
+    "copyHint": "Clique para copiar",
+    "footer": "Feito com cuidado. Hospedado no GitHub Pages."
+  },
   "skills": [
     "Google BigQuery",
     "Python",

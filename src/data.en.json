@@ -1,0 +1,96 @@
+{
+  "profile": {
+    "name": "Yasmin Calderon",
+    "title": "Analytics Engineer @Cora",
+    "location": "Curitiba, Paraná, Brazil",
+    "summary": "Hi! I'm a Systems Analysis and Development student at UFPR working as an Analytics Engineer at Cora. I move between business and tech building robust data pipelines with AWS, BigQuery, Python, Apache Airflow, and DBT. Came from web development and found in data a way to turn information into real impact. Passionate about collaboration, continuous learning, and seeing tech as a tool for inclusion.",
+    "email": "yasmiin.allanny@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/yasmin-calderon",
+    "github": "https://github.com/yasmin-calderon",
+    "githubUser": "yasmin-calderon"
+  },
+  "ui": {
+    "windowTitle": "Online Resume",
+    "tag": "Resume",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "projectsTeaser": "Public repositories will be listed here soon.",
+    "projectsNone": "No featured public project yet.",
+    "projectsLoaded": "Latest {n} public projects:",
+    "projectsError": "Could not load GitHub repositories.",
+    "noDescription": "No description.",
+    "copied": "Copied!",
+    "copyHint": "Click to copy",
+    "footer": "Crafted with care. Hosted on GitHub Pages."
+  },
+  "skills": [
+    "Google BigQuery",
+    "Python",
+    "SQL",
+    "Apache Airflow",
+    "DBT",
+    "AWS",
+    "Tableau"
+  ],
+  "experience": [
+    {
+      "company": "Cora",
+      "role": "Analytics Engineer",
+      "period": "Jan/2026 - Present",
+      "highlights": []
+    },
+    {
+      "company": "Pipefy",
+      "role": "Analytics Engineer",
+      "period": "Apr/2024 - Dec/2025",
+      "highlights": [
+        "Built and maintained data pipelines using Apache Airflow, Python, BigQuery, and DBT.",
+        "Code versioning and team collaboration via VSCode and GitLab.",
+        "Ensured data accuracy with validations, automated tests, and monitoring alerts.",
+        "Transformed raw data into curated tables to support business areas.",
+        "Actively supported monthly financial closings with validated and consistent data."
+      ]
+    },
+    {
+      "company": "Pipefy",
+      "role": "Data Assistant",
+      "period": "Nov/2022 - Jul/2024",
+      "highlights": [
+        "Built and maintained pipelines and transformations with Apache Airflow and BigQuery.",
+        "Supported the financial closing process ensuring data consistency.",
+        "Produced knowledge content on data architecture, SQL, and best practices."
+      ]
+    },
+    {
+      "company": "Pipefy",
+      "role": "Data Analytics Apprentice",
+      "period": "Apr/2022 - Nov/2022",
+      "highlights": [
+        "Created analytical tables in BigQuery aligned with business areas.",
+        "Built Tableau dashboards following data visualization best practices.",
+        "Supported strategic projects led by the data coordination team."
+      ]
+    },
+    {
+      "company": "UpNext Digital Commerce",
+      "role": "Front-end Intern",
+      "period": "Nov/2021 - Apr/2022",
+      "highlights": []
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidade Federal do Paraná",
+      "degree": "Associate Degree in Systems Analysis and Development",
+      "period": "Jul/2021 - Jul/2026"
+    },
+    {
+      "institution": "Cubos Academy",
+      "degree": "Professional Training - Full Stack Web Development",
+      "period": "2021"
+    }
+  ]
+}

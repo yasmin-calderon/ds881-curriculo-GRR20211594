@@ -11,7 +11,8 @@ Projeto da disciplina **DS881 — Tópicos Especiais** (Análise e Desenvolvimen
 ## Stack
 
 - **Aplicação:** HTML, CSS e JavaScript vanilla, empacotados com [Vite](https://vitejs.dev/) 5
-- **Conteúdo:** `src/data.json` (fonte da verdade) + [GitHub REST API](https://docs.github.com/en/rest) para listar repositórios públicos
+- **Conteúdo:** `src/data.pt.json` + `src/data.en.json` (fontes da verdade bilíngues) + [GitHub REST API](https://docs.github.com/en/rest) para listar repositórios públicos
+- **i18n:** seletor PT/EN com persistência via `localStorage` e detecção automática via `navigator.language`
 - **Tipografia:** DM Serif Display + Nunito (Google Fonts)
 - **Ambiente de desenvolvimento:** Docker (`node:24-alpine`) + Docker Compose
 - **CI/CD:** GitHub Actions (Lint → Build → Deploy para Pages)
@@ -30,8 +31,9 @@ Projeto da disciplina **DS881 — Tópicos Especiais** (Análise e Desenvolvimen
 ├── public/
 │   └── curriculum-icon.png      # Favicon (servido como estático pelo Vite)
 ├── src/
-│   ├── data.json                # Dados do currículo (fonte da verdade)
-│   ├── main.js                  # Lógica de renderização + GitHub API
+│   ├── data.pt.json             # Conteúdo do currículo em português (e UI PT)
+│   ├── data.en.json             # Conteúdo do currículo em inglês (e UI EN)
+│   ├── main.js                  # Renderização + i18n + GitHub API
 │   └── style.css                # Paleta e layout
 ├── index.html                   # Entry point Vite
 ├── Dockerfile                   # node:24-alpine + Vite dev server
@@ -60,7 +62,7 @@ docker compose up
 # http://localhost:8080
 ```
 
-Edite qualquer arquivo (`src/data.json`, `src/style.css`, etc.) e salve — o navegador recarrega automaticamente via hot reload.
+Edite qualquer arquivo (`src/data.pt.json`, `src/style.css`, etc.) e salve — o navegador recarrega automaticamente via hot reload.
 
 Para parar: `Ctrl+C` no terminal e depois:
 
@@ -92,13 +94,29 @@ npm run dev
 
 ## Como atualizar o conteúdo
 
-Todo o currículo é renderizado a partir de `src/data.json` — não precisa mexer no HTML, CSS ou JS para atualizar.
+Todo o currículo é renderizado a partir de `src/data.pt.json` e `src/data.en.json` — não precisa mexer no HTML, CSS ou JS para atualizar.
 
-- **Editar dados de perfil, experiência, formação, skills:** edite `src/data.json` e salve.
+- **Editar dados de perfil, experiência, formação, skills:** edite os dois arquivos (`data.pt.json` para a versão em português, `data.en.json` para inglês), mantendo as duas consistentes.
 - **Mudar quais repositórios aparecem:** o site lista automaticamente até 6 repositórios públicos do GitHub (campo `profile.githubUser`) que tenham **descrição preenchida** — funciona como auto-curadoria.
 - **Visual / paleta:** todas as cores e fontes ficam centralizadas em `:root` no topo do `src/style.css`.
 
 Após editar, abra um PR. O CI valida e, ao merge na `main`, o deploy é automático.
+
+---
+
+## Internacionalização (i18n)
+
+O site é bilíngue (PT/EN) com um seletor fixo no canto superior direito. O `main.js`:
+
+1. Verifica `localStorage` por uma escolha prévia do usuário.
+2. Se não encontrar, consulta `navigator.language` — começa em EN se o navegador estiver em inglês, PT caso contrário.
+3. Ao clicar em PT ou EN, persiste a escolha no `localStorage` e re-renderiza todas as seções em memória (sem reload).
+
+Cada arquivo de idioma é auto-contido — tem `profile`, `ui` (textos da interface), `skills`, `experience` e `education`. Para adicionar um terceiro idioma (ex: espanhol):
+
+1. Crie `src/data.es.json` copiando a estrutura de um existente.
+2. Em `main.js`, importe-o e adicione ao objeto `ALL` e ao array `SUPPORTED`.
+3. Em `index.html`, adicione `<button data-lang="es" class="lang-btn">ES</button>` no `.lang-switcher`.
 
 ---
 

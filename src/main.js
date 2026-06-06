@@ -1,7 +1,24 @@
 import "./style.css";
-import data from "./data.json";
+import dataPt from "./data.pt.json";
+import dataEn from "./data.en.json";
 
 const $ = (id) => document.getElementById(id);
+const STORAGE_KEY = "cv-lang";
+const SUPPORTED = ["pt", "en"];
+const ALL = { pt: dataPt, en: dataEn };
+
+// Decide o idioma inicial: preferencia salva > preferencia do navegador > pt.
+function detectInitialLang() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (SUPPORTED.includes(stored)) return stored;
+  const browser = (navigator.language || "").toLowerCase();
+  if (browser.startsWith("en")) return "en";
+  return "pt";
+}
+
+let currentLang = detectInitialLang();
+const data = () => ALL[currentLang];
+const t = (key) => data().ui[key];
 
 async function copyToClipboard(text, anchor) {
   try {
@@ -10,7 +27,7 @@ async function copyToClipboard(text, anchor) {
     const rect = anchor.getBoundingClientRect();
     anchor.style.minWidth = `${rect.width}px`;
     anchor.style.justifyContent = "center";
-    anchor.textContent = "Copiado!";
+    anchor.textContent = t("copied");
     anchor.classList.add("is-copied");
     setTimeout(() => {
       anchor.textContent = original;
@@ -19,22 +36,34 @@ async function copyToClipboard(text, anchor) {
       anchor.style.justifyContent = "";
     }, 1500);
   } catch (err) {
-    console.error("Clipboard API indisponível:", err);
+    console.error("Clipboard API indisponivel:", err);
     window.location.href = anchor.href;
   }
 }
 
+function renderStaticUI() {
+  document.documentElement.lang = currentLang === "pt" ? "pt-BR" : "en";
+  document.title = t("windowTitle");
+  $("hero-tag").textContent = t("tag");
+  $("about-heading").textContent = t("about");
+  $("skills-heading").textContent = t("skills");
+  $("experience-heading").textContent = t("experience");
+  $("education-heading").textContent = t("education");
+  $("projects-heading").textContent = t("projects");
+  $("footer-text").textContent = t("footer");
+}
+
 function renderProfile() {
-  const { profile } = data;
-  $("profile-name").textContent = profile.name;
-  $("profile-title").textContent = profile.title;
-  $("profile-location").textContent = profile.location;
-  $("profile-summary").textContent = profile.summary;
+  const p = data().profile;
+  $("profile-name").textContent = p.name;
+  $("profile-title").textContent = p.title;
+  $("profile-location").textContent = p.location;
+  $("profile-summary").textContent = p.summary;
 
   const links = [
-    { href: `mailto:${profile.email}`, label: profile.email, copy: profile.email },
-    { href: profile.linkedin, label: "LinkedIn" },
-    { href: profile.github, label: "GitHub" },
+    { href: `mailto:${p.email}`, label: p.email, copy: p.email },
+    { href: p.linkedin, label: "LinkedIn" },
+    { href: p.github, label: "GitHub" },
   ];
   const nav = $("profile-links");
   nav.innerHTML = "";
@@ -47,7 +76,7 @@ function renderProfile() {
       a.rel = "noopener noreferrer";
     }
     if (link.copy) {
-      a.title = "Clique para copiar";
+      a.title = t("copyHint");
       a.addEventListener("click", (e) => {
         e.preventDefault();
         copyToClipboard(link.copy, a);
@@ -60,7 +89,7 @@ function renderProfile() {
 function renderSkills() {
   const list = $("skills-list");
   list.innerHTML = "";
-  for (const skill of data.skills) {
+  for (const skill of data().skills) {
     const li = document.createElement("li");
     li.textContent = skill;
     list.appendChild(li);
@@ -107,10 +136,11 @@ function renderTimeline(listId, items, fields) {
 async function renderProjects() {
   const hint = $("projects-hint");
   const list = $("projects-list");
-  const user = data.profile.githubUser;
+  list.innerHTML = "";
+  const user = data().profile.githubUser;
 
   if (!user) {
-    hint.textContent = "Os repositórios públicos serão listados aqui em breve.";
+    hint.textContent = t("projectsTeaser");
     return;
   }
 
@@ -130,11 +160,11 @@ async function renderProjects() {
       .slice(0, 6);
 
     if (filtered.length === 0) {
-      hint.textContent = "Nenhum repositório público destacado ainda.";
+      hint.textContent = t("projectsNone");
       return;
     }
 
-    hint.textContent = `Últimos ${filtered.length} projetos públicos:`;
+    hint.textContent = t("projectsLoaded").replace("{n}", filtered.length);
     for (const repo of filtered) {
       const a = document.createElement("a");
       a.className = "project-card";
@@ -149,7 +179,7 @@ async function renderProjects() {
 
       const desc = document.createElement("p");
       desc.className = "project-desc";
-      desc.textContent = repo.description;
+      desc.textContent = repo.description || t("noDescription");
       a.appendChild(desc);
 
       const meta = document.createElement("div");
@@ -171,21 +201,48 @@ async function renderProjects() {
     }
   } catch (err) {
     console.error(err);
-    hint.textContent = "Não foi possível carregar os repositórios do GitHub.";
+    hint.textContent = t("projectsError");
   }
 }
 
-renderProfile();
-renderSkills();
-renderTimeline("experience-list", data.experience, {
-  primary: "role",
-  secondary: "company",
-  period: "period",
-  highlights: "highlights",
-});
-renderTimeline("education-list", data.education, {
-  primary: "degree",
-  secondary: "institution",
-  period: "period",
-});
-renderProjects();
+function updateLangSwitcher() {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.lang === currentLang);
+    btn.setAttribute("aria-pressed", btn.dataset.lang === currentLang);
+  });
+}
+
+function setLang(lang) {
+  if (!SUPPORTED.includes(lang) || lang === currentLang) return;
+  currentLang = lang;
+  localStorage.setItem(STORAGE_KEY, lang);
+  renderAll();
+}
+
+function renderAll() {
+  renderStaticUI();
+  renderProfile();
+  renderSkills();
+  renderTimeline("experience-list", data().experience, {
+    primary: "role",
+    secondary: "company",
+    period: "period",
+    highlights: "highlights",
+  });
+  renderTimeline("education-list", data().education, {
+    primary: "degree",
+    secondary: "institution",
+    period: "period",
+  });
+  renderProjects();
+  updateLangSwitcher();
+}
+
+function bindLangSwitcher() {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+}
+
+bindLangSwitcher();
+renderAll();
