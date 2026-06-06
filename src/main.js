@@ -3,6 +3,27 @@ import data from "./data.json";
 
 const $ = (id) => document.getElementById(id);
 
+async function copyToClipboard(text, anchor) {
+  try {
+    await navigator.clipboard.writeText(text);
+    const original = anchor.textContent;
+    const rect = anchor.getBoundingClientRect();
+    anchor.style.minWidth = `${rect.width}px`;
+    anchor.style.justifyContent = "center";
+    anchor.textContent = "Copiado!";
+    anchor.classList.add("is-copied");
+    setTimeout(() => {
+      anchor.textContent = original;
+      anchor.classList.remove("is-copied");
+      anchor.style.minWidth = "";
+      anchor.style.justifyContent = "";
+    }, 1500);
+  } catch (err) {
+    console.error("Clipboard API indisponível:", err);
+    window.location.href = anchor.href;
+  }
+}
+
 function renderProfile() {
   const { profile } = data;
   $("profile-name").textContent = profile.name;
@@ -11,7 +32,7 @@ function renderProfile() {
   $("profile-summary").textContent = profile.summary;
 
   const links = [
-    { href: `mailto:${profile.email}`, label: "Email" },
+    { href: `mailto:${profile.email}`, label: profile.email, copy: profile.email },
     { href: profile.linkedin, label: "LinkedIn" },
     { href: profile.github, label: "GitHub" },
   ];
@@ -24,6 +45,13 @@ function renderProfile() {
     if (link.href.startsWith("http")) {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
+    }
+    if (link.copy) {
+      a.title = "Clique para copiar";
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        copyToClipboard(link.copy, a);
+      });
     }
     nav.appendChild(a);
   }
@@ -81,10 +109,8 @@ async function renderProjects() {
   const list = $("projects-list");
   const user = data.profile.githubUser;
 
-  // Sem usuário configurado: mantemos a seção como teaser. O conteúdo real
-  // entra quando data.json.profile.githubUser for definido no proximo PR.
   if (!user) {
-    hint.textContent = "Os repositorios publicos serao listados aqui em breve.";
+    hint.textContent = "Os repositórios públicos serão listados aqui em breve.";
     return;
   }
 
@@ -95,7 +121,7 @@ async function renderProjects() {
     if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
     const repos = await res.json();
     const filtered = repos
-      .filter((r) => !r.fork && !r.archived)
+      .filter((r) => !r.fork && !r.archived && r.description)
       .sort(
         (a, b) =>
           b.stargazers_count - a.stargazers_count ||
@@ -104,11 +130,11 @@ async function renderProjects() {
       .slice(0, 6);
 
     if (filtered.length === 0) {
-      hint.textContent = "Nenhum repositorio publico encontrado ainda.";
+      hint.textContent = "Nenhum repositório público destacado ainda.";
       return;
     }
 
-    hint.textContent = `Ultimos ${filtered.length} repositorios atualizados:`;
+    hint.textContent = `Últimos ${filtered.length} projetos públicos:`;
     for (const repo of filtered) {
       const a = document.createElement("a");
       a.className = "project-card";
@@ -123,7 +149,7 @@ async function renderProjects() {
 
       const desc = document.createElement("p");
       desc.className = "project-desc";
-      desc.textContent = repo.description || "Sem descricao.";
+      desc.textContent = repo.description;
       a.appendChild(desc);
 
       const meta = document.createElement("div");
@@ -136,7 +162,7 @@ async function renderProjects() {
       }
       if (repo.stargazers_count > 0) {
         const stars = document.createElement("span");
-        stars.textContent = `* ${repo.stargazers_count}`;
+        stars.textContent = `★ ${repo.stargazers_count}`;
         meta.appendChild(stars);
       }
       a.appendChild(meta);
@@ -145,7 +171,7 @@ async function renderProjects() {
     }
   } catch (err) {
     console.error(err);
-    hint.textContent = "Nao foi possivel carregar os repositorios do GitHub.";
+    hint.textContent = "Não foi possível carregar os repositórios do GitHub.";
   }
 }
 
