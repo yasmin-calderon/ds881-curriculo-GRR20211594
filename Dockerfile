@@ -1,10 +1,6 @@
 # syntax=docker/dockerfile:1
-# Base: Alpine Linux + Node.js 20 LTS (~60MB).
-FROM node:20-alpine
+FROM node:24-alpine
 
-# Run as the unprivileged 'node' user (uid 1000) that ships with the image.
-# This makes the image's /app/node_modules node-owned, so the anonymous volume
-# Compose seeds from it is writable at runtime (Vite creates node_modules/.vite).
 WORKDIR /app
 RUN chown node:node /app
 USER node

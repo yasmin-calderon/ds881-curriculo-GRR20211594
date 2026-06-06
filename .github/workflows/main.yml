@@ -11,10 +11,10 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
       - run: npm ci
       - run: npm run lint
@@ -23,28 +23,32 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
+      # GitHub Pages serves the site at /<repo>/, so Vite needs the matching
+      # base path so asset URLs resolve. vite.config.js reads this env var.
       VITE_BASE_PATH: /${{ github.event.repository.name }}/
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
       - run: npm ci
       - run: npm run build
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/
 
   deploy:
     name: Deploy to GitHub Pages
+    # Only deploy when something lands on main; PRs just lint+build.
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [lint, build]
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
+    # Serialize deploys to avoid races; queue follow-ups instead of canceling.
     concurrency:
       group: pages
       cancel-in-progress: false
@@ -54,4 +58,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
