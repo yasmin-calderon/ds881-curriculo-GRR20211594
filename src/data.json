@@ -1,43 +1,79 @@
 {
   "profile": {
-    "name": "Nome Completo",
-    "title": "Cargo - Empresa",
-    "location": "Cidade, Estado",
-    "summary": "Resumo profissional curto: contexto, area de atuacao e o que motiva. Este e um texto placeholder, o conteudo real entra no proximo PR.",
-    "email": "exemplo@email.com",
-    "linkedin": "https://www.linkedin.com/in/exemplo",
-    "github": "https://github.com/exemplo",
-    "githubUser": null
+    "name": "Yasmin Calderon",
+    "title": "Analytics Engineer @Cora",
+    "location": "Curitiba, Paraná, Brasil",
+    "summary": "Olá! Sou estudante de Análise e Desenvolvimento de Sistemas na UFPR e atuo como Analytics Engineer na Cora. Transito entre negócio e tecnologia construindo pipelines de dados robustos com AWS, BigQuery, Python, Apache Airflow e DBT. Vim do desenvolvimento web e descobri nos dados uma forma de transformar informação em impacto real. Apaixonada por colaboração, aprendizado contínuo e por enxergar a tecnologia como ferramenta de inclusão.",
+    "email": "yasmiin.allanny@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/yasmin-calderon",
+    "github": "https://github.com/yasmin-calderon",
+    "githubUser": "yasmin-calderon"
   },
   "skills": [
-    "Skill exemplo 1",
-    "Skill exemplo 2",
-    "Skill exemplo 3",
-    "Skill exemplo 4"
+    "Google BigQuery",
+    "Python",
+    "SQL",
+    "Apache Airflow",
+    "DBT",
+    "AWS",
+    "Tableau"
   ],
   "experience": [
     {
-      "company": "Empresa Exemplo",
-      "role": "Cargo Atual",
-      "period": "jan/2025 - atual",
+      "company": "Cora",
+      "role": "Analytics Engineer",
+      "period": "jan/2026 - atual",
       "highlights": []
     },
     {
-      "company": "Outra Empresa",
-      "role": "Cargo Anterior",
-      "period": "jan/2022 - dez/2024",
+      "company": "Pipefy",
+      "role": "Analytics Engineer",
+      "period": "abr/2024 - dez/2025",
       "highlights": [
-        "Atividade exemplo descrita em uma linha curta.",
-        "Outra atividade relevante e mensuravel.",
-        "Mais uma conquista ou responsabilidade."
+        "Construção e manutenção de pipelines de dados com Apache Airflow, Python, BigQuery e DBT.",
+        "Versionamento e colaboração via VSCode e GitLab.",
+        "Garantia de acurácia com validações, testes automatizados e alertas de monitoramento.",
+        "Transformação de dados raw em bases curadas para áreas de negócio.",
+        "Suporte ativo nos fechamentos mensais com dados validados e consistentes."
       ]
+    },
+    {
+      "company": "Pipefy",
+      "role": "Data Assistant",
+      "period": "nov/2022 - jul/2024",
+      "highlights": [
+        "Criação e manutenção de pipelines e transformações com Apache Airflow e BigQuery.",
+        "Apoio ao fechamento financeiro garantindo consistência dos dados.",
+        "Produção de pílulas de conhecimento sobre arquitetura de dados, SQL e boas práticas."
+      ]
+    },
+    {
+      "company": "Pipefy",
+      "role": "Data Analytics Apprentice",
+      "period": "abr/2022 - nov/2022",
+      "highlights": [
+        "Criação de tabelas analíticas no BigQuery alinhadas às áreas de negócio.",
+        "Desenvolvimento de dashboards no Tableau com boas práticas de visualização.",
+        "Apoio em projetos estratégicos da coordenação de dados."
+      ]
+    },
+    {
+      "company": "UpNext Digital Commerce",
+      "role": "Estagiária em Front-end",
+      "period": "nov/2021 - abr/2022",
+      "highlights": []
     }
   ],
   "education": [
     {
-      "institution": "Instituicao de Ensino",
-      "degree": "Curso - Grau",
-      "period": "ano - ano"
+      "institution": "Universidade Federal do Paraná",
+      "degree": "CST em Análise e Desenvolvimento de Sistemas",
+      "period": "jul/2021 - jul/2026"
+    },
+    {
+      "institution": "Cubos Academy",
+      "degree": "Formação Profissional - Desenvolvimento Web Full Stack",
+      "period": "2021"
     }
   ]
 }
