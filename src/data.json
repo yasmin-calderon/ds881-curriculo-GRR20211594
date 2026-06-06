@@ -1,0 +1,43 @@
+{
+  "profile": {
+    "name": "Nome Completo",
+    "title": "Cargo - Empresa",
+    "location": "Cidade, Estado",
+    "summary": "Resumo profissional curto: contexto, area de atuacao e o que motiva. Este e um texto placeholder, o conteudo real entra no proximo PR.",
+    "email": "exemplo@email.com",
+    "linkedin": "https://www.linkedin.com/in/exemplo",
+    "github": "https://github.com/exemplo",
+    "githubUser": null
+  },
+  "skills": [
+    "Skill exemplo 1",
+    "Skill exemplo 2",
+    "Skill exemplo 3",
+    "Skill exemplo 4"
+  ],
+  "experience": [
+    {
+      "company": "Empresa Exemplo",
+      "role": "Cargo Atual",
+      "period": "jan/2025 - atual",
+      "highlights": []
+    },
+    {
+      "company": "Outra Empresa",
+      "role": "Cargo Anterior",
+      "period": "jan/2022 - dez/2024",
+      "highlights": [
+        "Atividade exemplo descrita em uma linha curta.",
+        "Outra atividade relevante e mensuravel.",
+        "Mais uma conquista ou responsabilidade."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Instituicao de Ensino",
+      "degree": "Curso - Grau",
+      "period": "ano - ano"
+    }
+  ]
+}
